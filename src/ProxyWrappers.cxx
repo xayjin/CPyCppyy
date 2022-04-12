@@ -27,6 +27,7 @@
 #include <set>
 #include <string>
 #include <vector>
+#include <iostream>
 
 
 //- data _______________________________________________________________________
@@ -491,6 +492,33 @@ static PyObject* BuildCppClassBases(Cppyy::TCppType_t klass)
 }
 
 } // namespace CPyCppyy
+
+PyObject* CPyCppyy::DelScopeProxy(PyObject*, PyObject* args)
+{
+	if (PyTuple_Size(args) < 2){
+		std::cout<<"Need two args:nameString parentObject"<<std::endl;
+		Py_RETURN_FALSE;
+	}
+	std::string name = CPyCppyy_PyText_AsString(PyTuple_GetItem(args, 0));
+	
+	if (PyErr_Occurred())
+			Py_RETURN_FALSE;
+	Cppyy::TCppScope_t klass = Cppyy::GetScope(name);
+
+	if(!(bool)klass){
+		Py_RETURN_FALSE;
+	}
+	PyClassMap_t::iterator pci = gPyClasses.find(klass);
+	if (pci != gPyClasses.end()) {
+		gPyClasses.erase(klass);
+    std::string::size_type last = 0;
+		PyObject* parent=PyTuple_GetItem(args, 1);
+
+		std::string unscoped = name.substr(last, std::string::npos);
+		PyObject_DelAttrString(parent, name.c_str());
+	}
+	Py_RETURN_TRUE;
+}
 
 //----------------------------------------------------------------------------
 PyObject* CPyCppyy::GetScopeProxy(Cppyy::TCppScope_t scope)

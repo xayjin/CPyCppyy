@@ -841,6 +841,8 @@ static PyObject* EndCaptureStderr(PyObject*, PyObject*)
 static PyMethodDef gCPyCppyyMethods[] = {
     {(char*) "CreateScopeProxy", (PyCFunction)CPyCppyy::CreateScopeProxy,
       METH_VARARGS, (char*)"cppyy internal function"},
+		{(char*) "DelScopeProxy", (PyCFunction)CPyCppyy::DelScopeProxy,
+      METH_VARARGS, (char*)"cppyy internal function"},
     {(char*) "MakeCppTemplateClass", (PyCFunction)MakeCppTemplateClass,
       METH_VARARGS, (char*)"cppyy internal function"},
     {(char*) "_set_cpp_lazy_lookup", (PyCFunction)SetCppLazyLookup,

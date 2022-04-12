@@ -16,6 +16,8 @@ PyObject* CreateScopeProxy(Cppyy::TCppScope_t, const unsigned flags = 0);
 PyObject* CreateScopeProxy(PyObject*, PyObject* args);
 PyObject* CreateScopeProxy(
     const std::string& scope_name, PyObject* parent = nullptr, const unsigned flags = 0);
+PyObject* DelScopeProxy(PyObject*, PyObject* args);
+
 
 // C++ exceptions form a special case b/c they have to derive from BaseException
 PyObject* CreateExcScopeProxy(PyObject* pyscope, PyObject* pyname, PyObject* parent);
