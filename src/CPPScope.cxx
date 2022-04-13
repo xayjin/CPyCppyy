@@ -368,7 +368,7 @@ static PyObject* meta_getattro(PyObject* pyclass, PyObject* pyname)
             // function exists, now collect overloads
                 std::vector<PyCallable*> overloads;
                 for (auto idx : methods) {
-                    overloads.push_back(
+                    overloads.insert(overloads.begin(),
                         new CPPFunction(scope, Cppyy::GetMethod(scope, idx)));
                 }
 
