@@ -511,11 +511,6 @@ PyObject* CPyCppyy::DelScopeProxy(PyObject*, PyObject* args)
 	PyClassMap_t::iterator pci = gPyClasses.find(klass);
 	if (pci != gPyClasses.end()) {
 		gPyClasses.erase(klass);
-    std::string::size_type last = 0;
-		PyObject* parent=PyTuple_GetItem(args, 1);
-
-		std::string unscoped = name.substr(last, std::string::npos);
-		PyObject_DelAttrString(parent, name.c_str());
 	}
 	Py_RETURN_TRUE;
 }
